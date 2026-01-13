@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rêve de Coton | L'Art du Mariage d'Exception</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="ph ph-flower-lotus"></i> Rêve de Coton
+            </a>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#univers">Nos Univers</a></li>
+                
+                <li><a href="#concours" class="btn-nav-game"><i class="ph ph-gift"></i> Jeu Concours</a></li>
+                
+                <li><a href="#contact" class="btn-nav-contact">Contact</a></li>
+
+                <li><a href="#" id="loginBtn" style="font-size:0.85rem; font-weight:bold; color:var(--primary);"><i class="ph ph-user-circle"></i> Espace Client</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="video-wrapper">
+            <video autoplay muted loop playsinline poster="poster.jpg">
+                <source src="video.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+
+        <div class="hero-content fade-in-up">
+            <span class="subtitle">Organisation & Scénographie</span>
+            <h1>L'Art de célébrer<br>l'Unique</h1>
+            <p>De la conception à la réalisation, nous tissons pour vous le fil d'une journée inoubliable.</p>
+            <div class="hero-buttons">
+                <a href="#univers" class="btn-primary">Découvrir les Collections</a>
+                <a href="#concours" class="btn-secondary">Tenter ma Chance</a>
+            </div>
+        </div>
+        
+        <a href="#philosophie" class="scroll-down">
+            <i class="ph ph-arrow-down"></i>
+        </a>
+    </header>
+
+    <section id="philosophie" class="section-padding">
+        <div class="container text-center fade-in">
+            <span class="section-tag">Notre Vision</span>
+            <h2 class="section-title">Plus qu'un mariage, une émotion</h2>
+            <p class="intro-text">
+                Chez <strong>Rêve de Coton</strong>, chaque détail compte. Nous ne vendons pas seulement une prestation, nous créons une atmosphère.
+                Que vous rêviez d'un château féerique ou d'une grange bohème, nous donnons vie à vos envies avec élégance et sérénité.
+            </p>
+        </div>
+    </section>
+
+    <section id="univers" class="section-padding bg-alt">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-tag">Collections 2025-2026</span>
+                <h2 class="section-title">Choisissez votre Histoire</h2>
+                <p>Nos formules "Tout Inclus" pour une sérénité absolue.</p>
+            </div>
+            
+            <div class="grid-univers" id="formulas-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="options" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-tag">Sur-Mesure</span>
+                <h2 class="section-title">L'Excellence dans les Détails</h2>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card fade-in">
+                    <div class="card-icon"><i class="ph ph-fork-knife"></i></div>
+                    <h3>Ateliers Gourmands</h3>
+                    <ul class="list-check">
+                        <li><strong>Animation Foie Gras</strong> <span>10€ /pers</span></li>
+                        <li><strong>Cibo Italiano & Tapas</strong> <span>7€ /pers</span></li>
+                        <li><strong>Bar à Flamenkuch</strong> <span>6€ /pers</span></li>
+                        <li><strong>Wok Minute</strong> <span>5€ /pers</span></li>
+                    </ul>
+                </div>
+
+                <div class="detail-card fade-in" style="transition-delay: 0.2s;">
+                    <div class="card-icon"><i class="ph ph-music-notes"></i></div>
+                    <h3>Ambiance & Fête</h3>
+                    <ul class="list-check">
+                        <li><strong>Groupe Live</strong> <span>1 000€</span></li>
+                        <li><strong>DJ Set Pro</strong> <span>900€</span></li>
+                        <li><strong>Magicien Close-up</strong> <span>500€</span></li>
+                        <li><strong>Photobooth</strong> <span>300€</span></li>
+                    </ul>
+                </div>
+
+                <div class="detail-card fade-in" style="transition-delay: 0.4s;">
+                    <div class="card-icon"><i class="ph ph-camera"></i></div>
+                    <h3>Souvenirs & Sérénité</h3>
+                    <ul class="list-check">
+                        <li><strong>Photographe Jour J</strong> <span>1 000€</span></li>
+                        <li><strong>Vidéaste Cinematic</strong> <span>800€</span></li>
+                        <li><strong>Wedding Planner (J)</strong> <span>500€</span></li>
+                        <li><strong>Assurance Annulation</strong> <span>300€</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="concours" class="section-padding game-section">
+        <div class="container">
+            <div class="game-layout">
+                
+                <div class="game-info fade-in-left">
+                    <span class="game-tag">Exclusivité Web</span>
+                    <h2>La Roue de la Chance</h2>
+                    <p class="game-desc">
+                        Remplissez le formulaire ci-dessous pour débloquer la roue.
+                        Tentez de gagner des <strong>remises exceptionnelles</strong>, des <strong>goodies</strong> ou des <strong>options offertes</strong> !
+                    </p>
+
+                    <div class="form-wrapper" id="formContainer">
+                        <form id="dataForm">
+                            <div class="input-group">
+                                <label><i class="ph ph-user"></i> Nom & Prénom</label>
+                                <input type="text" id="userName" placeholder="Votre nom complet" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label><i class="ph ph-envelope"></i> Email</label>
+                                <input type="email" id="userEmail" placeholder="votre@email.com" required>
+                            </div>
+
+                            <div class="row-2">
+                                <div class="input-group">
+                                    <label><i class="ph ph-calendar-heart"></i> Date Mariage</label>
+                                    <input type="date" id="weddingDate" required>
+                                </div>
+                                <div class="input-group">
+                                    <label><i class="ph ph-wallet"></i> Budget Est.</label>
+                                    <select id="userBudget" required>
+                                        <option value="">Sélectionnez...</option>
+                                        <option value="10-20k">10k€ - 20k€</option>
+                                        <option value="20-30k">20k€ - 30k€</option>
+                                        <option value="30-50k">30k€ - 50k€</option>
+                                        <option value="+50k">+ 50k€</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-game-submit">Valider & Jouer <i class="ph ph-arrow-right"></i></button>
+                            <p class="privacy-note"><i class="ph ph-lock-key"></i> Vos données sont protégées.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="game-wheel-area fade-in-right">
+                    <div class="wheel-container blur-locked" id="wheelSection">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="wheel">
+                            <div class="segment s1"><span>Mug</span></div>
+                            <div class="segment s2"><span>Perdu</span></div>
+                            <div class="segment s3"><span>Stylo</span></div>
+                            <div class="segment s4"><span>Perdu</span></div>
+                            <div class="segment s5"><span>-5%</span></div>
+                            <div class="segment s6"><span>Perdu</span></div>
+                        </div>
+                        <div class="wheel-center">
+                            <button id="spinBtn" disabled>GO!</button>
+                        </div>
+                    </div>
+                    <div id="resultMessage" class="result-box"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding bg-dark">
+        <div class="container text-center fade-in">
+            <span class="section-tag dark-mode">Contact</span>
+            <h2 class="text-white">Commençons l'aventure</h2>
+            <p class="text-white-50">Une question ? Un devis ? Écrivez-nous.</p>
+            
+            <form action="https://formsubmit.co/rayan.guerroumi@etu.u-pec.fr" method="POST" class="contact-form-main">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://formsubmit.co/el/success">
+                
+                <div class="form-row">
+                    <input type="text" name="nom" placeholder="Votre Nom" required>
+                    <input type="email" name="email" placeholder="Votre Email" required>
+                </div>
+                <textarea name="message" rows="4" placeholder="Parlez-nous de vos envies..." required></textarea>
+                <button type="submit" class="btn-primary full-width">Envoyer le message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Rêve de Coton</h3>
+                    <p>Créateur d'instants magiques depuis 2010.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">CGV</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Rêve de Coton. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(5px); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:white; padding:40px; border-radius:8px; width:90%; max-width:400px; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+            <span class="close-modal" style="position:absolute; right:20px; top:15px; font-size:2rem; cursor:pointer; color:#999;">&times;</span>
+            <h3 style="text-align:center; color:var(--primary); margin-bottom:20px;">Espace Client Privé</h3>
+            <p style="text-align:center; font-size:0.9rem; margin-bottom:20px; color:#666;">Veuillez vous identifier pour accéder à votre dossier.</p>
+            <form id="loginForm">
+                <div style="margin-bottom:15px;">
+                    <input type="text" id="username" placeholder="Identifiant" required style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:20px;">
+                    <input type="password" id="password" placeholder="Mot de passe" required style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Se connecter</button>
+                <p id="loginError" style="color:red; margin-top:15px; text-align:center; display:none; font-size:0.9rem;">Identifiants incorrects.</p>
+            </form>
+        </div>
+    </div>
+
+    <section id="clientDashboard" class="section-padding bg-alt" style="display:none; min-height:100vh;">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; border-bottom:2px solid var(--accent); padding-bottom:20px;">
+                <div>
+                    <span style="font-size:0.9rem; text-transform:uppercase; color:#999;">Bienvenue dans votre espace</span>
+                    <h2 style="margin:0;">M. G. Gautheret</h2>
+                </div>
+                <button id="logoutBtn" class="btn-secondary" style="color:black; border-color:black;">Déconnexion</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:40px;">
+                
+                <div class="card" style="padding:30px; border-top:4px solid var(--accent);">
+                    <h3 style="color:var(--primary); margin-bottom:20px; font-size:1.4rem;">
+                        <i class="ph ph-chart-line-up" style="margin-right:10px;"></i> Suivi Projet
+                    </h3>
+                    
+                    <div style="margin-bottom:10px; font-weight:bold; color:var(--accent);">65% - En cours d'organisation</div>
+                    <div style="background:#eee; height:10px; border-radius:5px; overflow:hidden; margin-bottom:30px;">
+                        <div style="background:var(--accent); width:65%; height:100%;"></div>
+                    </div>
+
+                    <ul style="list-style:none; font-size:0.9rem;">
+                        <li style="margin-bottom:15px; color:#aaa; text-decoration:line-through;"><i class="ph ph-check-circle"></i> 1. Premier Rendez-vous</li>
+                        <li style="margin-bottom:15px; color:#aaa; text-decoration:line-through;"><i class="ph ph-check-circle"></i> 2. Validation du Devis</li>
+                        <li style="margin-bottom:15px; color:var(--secondary); font-weight:bold;"><i class="ph ph-circle-notch"></i> 3. Choix Traiteur (En cours)</li>
+                        <li style="margin-bottom:15px; color:#ccc;"><i class="ph ph-circle"></i> 4. Jour J</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="padding:30px; border-top:4px solid var(--primary);">
+                    <h3 style="color:var(--primary); margin-bottom:20px; font-size:1.4rem;">
+                        <i class="ph ph-receipt" style="margin-right:10px;"></i> Vos Commandes
+                    </h3>
+                    
+                    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                        <tr style="border-bottom:1px dashed #eee;">
+                            <td style="padding:10px 0;">
+                                <strong>Formule "Bohème Chic"</strong><br>
+                                <span style="font-size:0.8rem; color:#888;">Lieu : Seine-et-Marne</span>
+                            </td>
+                            <td style="text-align:right;">5 000 €</td>
+                        </tr>
+                        <tr style="border-bottom:1px dashed #eee;">
+                            <td style="padding:10px 0;">
+                                <strong>Repas (100 pers.)</strong><br>
+                                <span style="font-size:0.8rem; color:#888;">90€ / personne</span>
+                            </td>
+                            <td style="text-align:right;">9 000 €</td>
+                        </tr>
+                        <tr style="border-bottom:1px dashed #eee;">
+                            <td style="padding:10px 0;">Option : Animation Foie Gras</td>
+                            <td style="text-align:right;">1 000 €</td>
+                        </tr>
+                        <tr style="border-bottom:1px dashed #eee;">
+                            <td style="padding:10px 0;">Option : Groupe Live</td>
+                            <td style="text-align:right;">1 000 €</td>
+                        </tr>
+                        <tr style="font-weight:bold; font-size:1.2rem; color:var(--accent);">
+                            <td style="padding-top:20px;">TOTAL ESTIMÉ</td>
+                            <td style="text-align:right; padding-top:20px;">16 000 €</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card" style="padding:30px; border-top:4px solid #333;">
+                    <h3 style="color:var(--primary); margin-bottom:20px; font-size:1.4rem;">
+                        <i class="ph ph-files" style="margin-right:10px;"></i> Documents
+                    </h3>
+                    <ul class="list-check">
+                        <li>
+                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
+                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Devis_Signe_v2.pdf
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
+                                <i class="ph ph-image" style="font-size:1.2rem; color:blue;"></i> Plan_de_salle.jpg
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
+                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Moodboard_Boheme.pdf
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
+                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Contrat_RêveCoton.pdf
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
