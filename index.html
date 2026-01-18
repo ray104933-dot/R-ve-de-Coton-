@@ -12,6 +12,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* 1. Centrage du contenu */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 2. Image de fond (Remplacement Vidéo) */
+        header#home {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Effet parallaxe */
+        }
+
+        /* 3. Scroll sans cacher les titres */
+        html {
+            scroll-padding-top: 100px;
+        }
+
+        /* 4. Ajustements mobiles */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .section-padding { padding: 50px 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -30,24 +60,14 @@
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#univers">Nos Univers</a></li>
-                
                 <li><a href="#concours" class="btn-nav-game"><i class="ph ph-gift"></i> Jeu Concours</a></li>
-                
                 <li><a href="#contact" class="btn-nav-contact">Contact</a></li>
-
-                <li><a href="#" id="loginBtn" style="font-size:0.85rem; font-weight:bold; color:var(--primary);"><i class="ph ph-user-circle"></i> Espace Client</a></li>
+                <li><a href="#" id="loginBtn" style="font-size:0.85rem; font-weight:bold; color:var(--primary); cursor: pointer;"><i class="ph ph-user-circle"></i> Espace Client</a></li>
             </ul>
         </div>
     </nav>
 
     <header id="home">
-        <div class="video-wrapper">
-            <video autoplay muted loop playsinline poster="poster.jpg">
-                <source src="video.mp4" type="video/mp4">
-            </video>
-            <div class="overlay"></div>
-        </div>
-
         <div class="hero-content fade-in-up">
             <span class="subtitle">Organisation & Scénographie</span>
             <h1>L'Art de célébrer<br>l'Unique</h1>
@@ -71,6 +91,21 @@
                 Chez <strong>Rêve de Coton</strong>, chaque détail compte. Nous ne vendons pas seulement une prestation, nous créons une atmosphère.
                 Que vous rêviez d'un château féerique ou d'une grange bohème, nous donnons vie à vos envies avec élégance et sérénité.
             </p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="ph ph-heart"></i>
+                    <h3>Passion</h3>
+                </div>
+                <div class="feature-item">
+                    <i class="ph ph-star"></i>
+                    <h3>Excellence</h3>
+                </div>
+                <div class="feature-item">
+                    <i class="ph ph-clock"></i>
+                    <h3>Sérénité</h3>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -82,8 +117,7 @@
                 <p>Nos formules "Tout Inclus" pour une sérénité absolue.</p>
             </div>
             
-            <div class="grid-univers" id="formulas-container">
-                </div>
+            <div class="grid-univers" id="formulas-container"></div>
         </div>
     </section>
 
@@ -181,6 +215,7 @@
                 <div class="game-wheel-area fade-in-right">
                     <div class="wheel-container blur-locked" id="wheelSection">
                         <div class="wheel-pointer"></div>
+                        
                         <div class="wheel" id="wheel">
                             <div class="segment s1"><span>Mug</span></div>
                             <div class="segment s2"><span>Perdu</span></div>
@@ -189,8 +224,9 @@
                             <div class="segment s5"><span>-5%</span></div>
                             <div class="segment s6"><span>Perdu</span></div>
                         </div>
+                        
                         <div class="wheel-center">
-                            <button id="spinBtn" disabled>GO!</button>
+                            <button id="spinBtn" disabled>GO</button>
                         </div>
                     </div>
                     <div id="resultMessage" class="result-box"></div>
@@ -206,10 +242,7 @@
             <h2 class="text-white">Commençons l'aventure</h2>
             <p class="text-white-50">Une question ? Un devis ? Écrivez-nous.</p>
             
-            <form action="https://formsubmit.co/rayan.guerroumi@etu.u-pec.fr" method="POST" class="contact-form-main">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://formsubmit.co/el/success">
-                
+            <form action="#" method="POST" class="contact-form-main">
                 <div class="form-row">
                     <input type="text" name="nom" placeholder="Votre Nom" required>
                     <input type="email" name="email" placeholder="Votre Email" required>
@@ -233,7 +266,7 @@
                     <a href="#">Instagram</a>
                 </div>
             </div>
-            <div class="footer-bottom">
+            <div class="footer-bottom" style="text-align: center; font-size: 0.8rem;">
                 &copy; 2025 Rêve de Coton. Tous droits réservés.
             </div>
         </div>
@@ -244,6 +277,7 @@
             <span class="close-modal" style="position:absolute; right:20px; top:15px; font-size:2rem; cursor:pointer; color:#999;">&times;</span>
             <h3 style="text-align:center; color:var(--primary); margin-bottom:20px;">Espace Client Privé</h3>
             <p style="text-align:center; font-size:0.9rem; margin-bottom:20px; color:#666;">Veuillez vous identifier pour accéder à votre dossier.</p>
+            
             <form id="loginForm">
                 <div style="margin-bottom:15px;">
                     <input type="text" id="username" placeholder="Identifiant" required style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
@@ -252,17 +286,17 @@
                     <input type="password" id="password" placeholder="Mot de passe" required style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
                 </div>
                 <button type="submit" class="btn-primary" style="width:100%;">Se connecter</button>
-                <p id="loginError" style="color:red; margin-top:15px; text-align:center; display:none; font-size:0.9rem;">Identifiants incorrects.</p>
+                <p id="loginError" style="color:var(--error); margin-top:15px; text-align:center; display:none; font-size:0.9rem;">Identifiants incorrects.</p>
             </form>
         </div>
     </div>
 
     <section id="clientDashboard" class="section-padding bg-alt" style="display:none; min-height:100vh;">
         <div class="container">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; border-bottom:2px solid var(--accent); padding-bottom:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; border-bottom:2px solid var(--accent); padding-bottom:20px; flex-wrap:wrap; gap:20px;">
                 <div>
                     <span style="font-size:0.9rem; text-transform:uppercase; color:#999;">Bienvenue dans votre espace</span>
-                    <h2 style="margin:0;">M. G. Gautheret</h2>
+                    <h2 style="margin:0;">M.Gautheret</h2>
                 </div>
                 <button id="logoutBtn" class="btn-secondary" style="color:black; border-color:black;">Déconnexion</button>
             </div>
@@ -273,12 +307,10 @@
                     <h3 style="color:var(--primary); margin-bottom:20px; font-size:1.4rem;">
                         <i class="ph ph-chart-line-up" style="margin-right:10px;"></i> Suivi Projet
                     </h3>
-                    
                     <div style="margin-bottom:10px; font-weight:bold; color:var(--accent);">65% - En cours d'organisation</div>
-                    <div style="background:#eee; height:10px; border-radius:5px; overflow:hidden; margin-bottom:30px;">
-                        <div style="background:var(--accent); width:65%; height:100%;"></div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="background:var(--accent); width:0%; height:100%;"></div>
                     </div>
-
                     <ul style="list-style:none; font-size:0.9rem;">
                         <li style="margin-bottom:15px; color:#aaa; text-decoration:line-through;"><i class="ph ph-check-circle"></i> 1. Premier Rendez-vous</li>
                         <li style="margin-bottom:15px; color:#aaa; text-decoration:line-through;"><i class="ph ph-check-circle"></i> 2. Validation du Devis</li>
@@ -291,32 +323,17 @@
                     <h3 style="color:var(--primary); margin-bottom:20px; font-size:1.4rem;">
                         <i class="ph ph-receipt" style="margin-right:10px;"></i> Vos Commandes
                     </h3>
-                    
                     <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
                         <tr style="border-bottom:1px dashed #eee;">
-                            <td style="padding:10px 0;">
-                                <strong>Formule "Bohème Chic"</strong><br>
-                                <span style="font-size:0.8rem; color:#888;">Lieu : Seine-et-Marne</span>
-                            </td>
+                            <td style="padding:10px 0;"><strong>Formule "Bohème Chic"</strong><br><span style="font-size:0.8rem; color:#888;">Lieu : Seine-et-Marne</span></td>
                             <td style="text-align:right;">5 000 €</td>
                         </tr>
                         <tr style="border-bottom:1px dashed #eee;">
-                            <td style="padding:10px 0;">
-                                <strong>Repas (100 pers.)</strong><br>
-                                <span style="font-size:0.8rem; color:#888;">90€ / personne</span>
-                            </td>
+                            <td style="padding:10px 0;"><strong>Repas (100 pers.)</strong></td>
                             <td style="text-align:right;">9 000 €</td>
                         </tr>
-                        <tr style="border-bottom:1px dashed #eee;">
-                            <td style="padding:10px 0;">Option : Animation Foie Gras</td>
-                            <td style="text-align:right;">1 000 €</td>
-                        </tr>
-                        <tr style="border-bottom:1px dashed #eee;">
-                            <td style="padding:10px 0;">Option : Groupe Live</td>
-                            <td style="text-align:right;">1 000 €</td>
-                        </tr>
                         <tr style="font-weight:bold; font-size:1.2rem; color:var(--accent);">
-                            <td style="padding-top:20px;">TOTAL ESTIMÉ</td>
+                            <td style="padding-top:20px;">TOTAL</td>
                             <td style="text-align:right; padding-top:20px;">16 000 €</td>
                         </tr>
                     </table>
@@ -327,26 +344,9 @@
                         <i class="ph ph-files" style="margin-right:10px;"></i> Documents
                     </h3>
                     <ul class="list-check">
-                        <li>
-                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
-                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Devis_Signe_v2.pdf
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
-                                <i class="ph ph-image" style="font-size:1.2rem; color:blue;"></i> Plan_de_salle.jpg
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
-                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Moodboard_Boheme.pdf
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" style="display:flex; align-items:center; gap:10px; color:#555;">
-                                <i class="ph ph-file-pdf" style="font-size:1.2rem; color:red;"></i> Contrat_RêveCoton.pdf
-                            </a>
-                        </li>
+                        <li class="doc-link"><i class="ph ph-file-pdf"></i> Devis_Signe_v2.pdf</li>
+                        <li class="doc-link"><i class="ph ph-image"></i> Plan_de_salle.jpg</li>
+                        <li class="doc-link"><i class="ph ph-file-pdf"></i> Contrat.pdf</li>
                     </ul>
                 </div>
 

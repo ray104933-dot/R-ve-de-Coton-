@@ -1,11 +1,6 @@
 /**
  * RÊVE DE COTON - SCRIPT PRINCIPAL
- * Version : Premium / Complète
- * * Ce script gère :
- * 1. L'interface utilisateur (Menu, Scroll, Animations)
- * 2. La génération dynamique des offres
- * 3. La logique du Jeu Concours (Data Trap + Roue truquée)
- * 4. L'accès sécurisé à l'Espace Client (G. Gautheret)
+ * Version : Optimisée
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===============================================================
        1. DONNÉES : LES UNIVERS (TARIFS & INFOS)
        =============================================================== */
-    // Ces données alimentent la section "Nos Univers" automatiquement.
     const formulasData = [
         { 
             name: "Bohème Chic", 
@@ -78,11 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // B. Menu Mobile (Burger)
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
-            // Bascule l'affichage du menu
             if (navLinks.style.display === 'flex') {
                 navLinks.style.display = 'none';
             } else {
                 navLinks.style.display = 'flex';
+                // Animation d'entrée douce
+                navLinks.style.animation = "fadeUp 0.3s ease forwards";
             }
         });
     }
@@ -103,10 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (formulasContainer) {
         formulasData.forEach((formula, index) => {
-            // Création de la carte HTML
             const card = document.createElement('div');
             card.className = 'card fade-in';
-            // Ajout d'un délai pour l'effet "cascade" (la 2ème apparaît après la 1ère, etc.)
+            // Délai pour effet cascade
             card.style.transitionDelay = `${index * 100}ms`;
 
             card.innerHTML = `
@@ -135,9 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===============================================================
        4. ANIMATIONS D'APPARITION (SCROLL REVEAL)
        =============================================================== */
-    // Utilisation de l'API IntersectionObserver pour la performance
     const observerOptions = {
-        threshold: 0.15, // L'élément doit être visible à 15% pour apparaître
+        threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
@@ -145,18 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // On arrête d'observer une fois affiché
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // On cible tous les éléments qui ont les classes fade-in
     const animatedElements = document.querySelectorAll('.fade-in, .fade-in-up, .fade-in-left, .fade-in-right');
     animatedElements.forEach(el => observer.observe(el));
 
 
     /* ===============================================================
-       5. JEU CONCOURS (ROUE TRUQUÉE & DATA TRAP)
+       5. JEU CONCOURS (DATA TRAP & ROUE)
        =============================================================== */
     const dataForm = document.getElementById('dataForm');
     const wheelSection = document.getElementById('wheelSection');
@@ -165,70 +157,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultMessage = document.getElementById('resultMessage');
     const formContainer = document.getElementById('formContainer');
 
-    // A. Gestion du Formulaire (Data Trap)
+    // A. Validation du formulaire
     if (dataForm) {
         dataForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // 1. Simulation de sauvegarde (localStorage)
             const leadData = {
                 name: document.getElementById('userName').value,
                 email: document.getElementById('userEmail').value,
                 date: document.getElementById('weddingDate').value,
                 budget: document.getElementById('userBudget').value
             };
+
+            /* ---------------------------------------------------------
+             * NOTE POUR LE BACKEND JAVA :
+             * Pour connecter le script à votre API Spring Boot,
+             * décommentez le bloc ci-dessous et supprimez le mode "Simulation".
+             * --------------------------------------------------------- */
             
-            // On stocke les infos (C'est ici que tu montres au prof que tu as la data)
+            /*
+            fetch('http://localhost:8080/api/game/participate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(leadData)
+            })
+            .then(res => {
+                if(res.ok) {
+                   unlockWheel(leadData.name);
+                } else {
+                   showToast("Erreur de connexion serveur", "error");
+                }
+            });
+            */
+
+            // --- MODE SIMULATION (Par défaut) ---
+            console.log("Données capturées :", leadData);
             localStorage.setItem('last_lead_data', JSON.stringify(leadData));
-
-            // 2. Feedback Visuel (Success)
-            showToast("Informations validées avec succès !", "success");
-            
-            // On remplace le formulaire par un message de confirmation
-            formContainer.innerHTML = `
-                <div style="text-align:center; padding:40px 20px; animation: fadeUp 0.5s ease;">
-                    <i class="ph ph-check-circle" style="font-size:4rem; color:#d4af37; margin-bottom:15px;"></i>
-                    <h3 style="color:white; margin-bottom:10px;">C'est validé !</h3>
-                    <p style="color:rgba(255,255,255,0.7);">
-                        Merci ${leadData.name}.<br>
-                        La roue est débloquée. À vous de jouer ! 👉
-                    </p>
-                </div>
-            `;
-
-            // 3. Déblocage de la roue
-            wheelSection.classList.remove('blur-locked');
-            spinBtn.disabled = false;
+            unlockWheel(leadData.name);
+            // ------------------------------------
         });
     }
 
-    // B. Gestion de la Roue (Truquée pour perdre)
+    function unlockWheel(name) {
+        showToast("Informations validées avec succès !", "success");
+        
+        // Remplacement du formulaire par un message de succès
+        formContainer.innerHTML = `
+            <div style="text-align:center; padding:40px 20px; animation: fadeUp 0.5s ease;">
+                <i class="ph ph-check-circle" style="font-size:4rem; color:#d4af37; margin-bottom:15px;"></i>
+                <h3 style="color:white; margin-bottom:10px;">C'est validé !</h3>
+                <p style="color:rgba(255,255,255,0.7);">
+                    Merci ${name}.<br>
+                    La roue est débloquée. À vous de jouer ! 👉
+                </p>
+            </div>
+        `;
+        
+        wheelSection.classList.remove('blur-locked');
+        spinBtn.disabled = false;
+    }
+
+    // B. Logique de la Roue (Truquée)
     if (spinBtn) {
         spinBtn.addEventListener('click', () => {
-            // Désactive le bouton
             spinBtn.disabled = true;
             spinBtn.innerText = "...";
             resultMessage.style.display = 'none';
 
-            // --- LOGIQUE DE TRICHE ---
-            // La roue a 6 segments de 60°.
-            // Segments "Perdu" (Gris) : S2, S4, S6.
-            // Pour tomber dessus, il faut viser les angles : 120°, 240° ou 360°.
-            
+            // Angles perdants (Segments gris : 120, 240, 360)
             const losingAngles = [120, 240, 360];
-            // Choix aléatoire parmi les positions perdantes
             const targetAngle = losingAngles[Math.floor(Math.random() * losingAngles.length)];
             
-            // Calcul de la rotation :
-            // 10 tours complets (3600°) + l'angle cible + un petit décalage aléatoire réaliste (+/- 10°)
+            // Calcul rotation : 10 tours + angle cible + variation réaliste
             const spins = 360 * 10; 
             const randomOffset = Math.floor(Math.random() * 20) - 10;
             const finalRotation = spins + targetAngle + randomOffset;
 
-            // Application de la rotation CSS
             wheel.style.transform = `rotate(${finalRotation}deg)`;
 
-            // --- RÉSULTAT APRÈS 5 SECONDES ---
+            // Résultat après 5s
             setTimeout(() => {
                 showToast("La roue s'est arrêtée...", "default");
                 
@@ -246,25 +253,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 spinBtn.style.background = "#ccc";
                 spinBtn.style.color = "#666";
                 spinBtn.style.cursor = "default";
-                
-            }, 5000); // 5000ms = Durée de la transition CSS
+            }, 5000);
         });
     }
 
 
     /* ===============================================================
-       6. ESPACE CLIENT PRIVÉ (G. GAUTHERET)
+       6. ESPACE CLIENT PRIVÉ (LOGIN & DASHBOARD)
        =============================================================== */
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
-    const closeModals = document.querySelectorAll('.close-modal'); // Supporte plusieurs boutons fermer
+    const closeModals = document.querySelectorAll('.close-modal');
     const loginForm = document.getElementById('loginForm');
     const clientDashboard = document.getElementById('clientDashboard');
-    
-    // Liste des sections publiques à cacher lors de la connexion
     const publicSections = document.querySelectorAll('header, #philosophie, #univers, #options, #concours, #contact');
 
-    // A. Ouvrir le modal
+    // Ouverture Modal
     if (loginBtn) {
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -272,137 +276,102 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // B. Fermer le modal
+    // Fermeture Modal
     closeModals.forEach(btn => {
         btn.addEventListener('click', () => {
             loginModal.style.display = 'none';
         });
     });
 
-    // C. Fermer si on clique en dehors
     window.addEventListener('click', (e) => {
-        if (e.target == loginModal) {
-            loginModal.style.display = 'none';
-        }
+        if (e.target == loginModal) loginModal.style.display = 'none';
     });
 
-    // D. Logique de Connexion
+    // Connexion
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Empêche le rechargement de page
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const err = document.getElementById('loginError');
 
-            const userInput = document.getElementById('username').value;
-            const passInput = document.getElementById('password').value;
-            const errorMsg = document.getElementById('loginError');
-
-            // --- VÉRIFICATION DES IDENTIFIANTS ---
-            if (userInput === "G.Gautheret" && passInput === "2Qv4jgH3") {
-                // 1. Connexion réussie
+            if (u === "G.Gautheret" && p === "2Qv4jgH3") {
                 loginModal.style.display = 'none';
-                showToast("Connexion réussie. Bienvenue M. Gautheret.", "success");
+                showToast("Bienvenue M. Gautheret.", "success");
 
-                // 2. On cache tout le site public
-                publicSections.forEach(section => {
-                    section.style.display = 'none';
-                });
-
-                // 3. On affiche le dashboard
+                // Cacher le site public, afficher le dashboard
+                publicSections.forEach(s => s.style.display = 'none');
                 clientDashboard.style.display = 'block';
-                
-                // 4. On remonte en haut de page
                 window.scrollTo(0, 0);
 
-                // 5. Petite animation de la barre de progression (Bonus visuel)
+                // Animation barre de progression
                 setTimeout(() => {
-                    const progressBar = document.querySelector('.progress-bar-fill');
-                    if(progressBar) progressBar.style.width = "65%"; // Simule le chargement
+                    const bar = document.querySelector('.progress-bar-fill');
+                    if(bar) bar.style.width = "65%";
                 }, 500);
 
             } else {
-                // Erreur
-                errorMsg.style.display = 'block';
-                errorMsg.innerText = "Identifiant ou mot de passe incorrect.";
-                
-                // Animation de secousse pour l'erreur
-                const modalContent = loginModal.querySelector('div');
-                modalContent.style.animation = "shake 0.5s ease";
-                setTimeout(() => modalContent.style.animation = "", 500);
+                err.style.display = 'block';
+                const content = loginModal.querySelector('div');
+                content.style.animation = "shake 0.5s ease";
+                setTimeout(() => content.style.animation = "", 500);
             }
         });
     }
 
-    // E. Déconnexion
+    // Déconnexion
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            // Le plus simple pour déconnecter : recharger la page
-            showToast("Déconnexion en cours...", "default");
-            setTimeout(() => {
-                location.reload();
-            }, 1000);
+            showToast("Déconnexion...", "default");
+            setTimeout(() => location.reload(), 1000);
         });
     }
 
     /* ===============================================================
-       7. FONCTION UTILITAIRE : NOTIFICATIONS (TOASTS)
+       7. UTILITAIRE : TOAST NOTIFICATIONS
        =============================================================== */
-    // Cette fonction crée des petites bulles de notification élégantes
     function showToast(message, type = 'success') {
-        // Création de l'élément
         const toast = document.createElement('div');
         toast.className = 'toast';
-        
-        // Icône selon le type
         let icon = type === 'success' ? '<i class="ph ph-check-circle"></i>' : '<i class="ph ph-info"></i>';
         
-        // Style de base
-        toast.style.position = 'fixed';
-        toast.style.bottom = '30px';
-        toast.style.right = '30px';
-        toast.style.backgroundColor = type === 'success' ? '#2c2c2c' : '#8e7f7f'; // Noir ou Taupe
-        toast.style.color = 'white';
-        toast.style.padding = '15px 25px';
-        toast.style.borderRadius = '50px';
-        toast.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
-        toast.style.display = 'flex';
-        toast.style.alignItems = 'center';
-        toast.style.gap = '10px';
-        toast.style.zIndex = '9999';
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
-        toast.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        // Styles JS injectés pour éviter dépendance CSS externe
+        Object.assign(toast.style, {
+            position: 'fixed', bottom: '30px', right: '30px',
+            backgroundColor: type === 'success' ? '#2c2c2c' : (type === 'error' ? '#c0392b' : '#8e7f7f'),
+            color: 'white', padding: '15px 25px', borderRadius: '50px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            display: 'flex', alignItems: 'center', gap: '10px',
+            zIndex: '9999', opacity: '0', transform: 'translateY(20px)',
+            transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+        });
         
-        toast.innerHTML = `${icon} <span style="font-weight:bold; font-family:var(--font-text);">${message}</span>`;
-        
+        toast.innerHTML = `${icon} <span style="font-weight:bold;">${message}</span>`;
         document.body.appendChild(toast);
 
         // Animation Entrée
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             toast.style.opacity = '1';
             toast.style.transform = 'translateY(0)';
-        }, 100);
+        });
 
-        // Animation Sortie (après 4 secondes)
+        // Animation Sortie
         setTimeout(() => {
             toast.style.opacity = '0';
             toast.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                document.body.removeChild(toast);
-            }, 400);
+            setTimeout(() => document.body.removeChild(toast), 400);
         }, 4000);
     }
     
-    // Ajout de l'animation Keyframe "shake" pour le mot de passe incorrect
+    // Injection style keyframes pour "Shake" error
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `
         @keyframes shake {
-            0% { transform: translateX(0); }
+            0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
+            75% { transform: translateX(10px); }
         }
     `;
     document.head.appendChild(styleSheet);
-
 });

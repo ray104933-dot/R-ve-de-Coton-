@@ -49,7 +49,9 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
-    overflow-x: hidden; /* Évite le scroll horizontal involontaire */
+    overflow-x: hidden;
+    /* Empêche le menu fixe de cacher les titres au clic */
+    scroll-padding-top: 100px; 
 }
 
 body {
@@ -58,6 +60,14 @@ body {
     background-color: var(--bg-body);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+}
+
+/* === CONTENEUR GLOBAL (Fixe les marges) === */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
 }
 
 /* Scrollbar Personnalisée */
@@ -91,6 +101,7 @@ h1, h2, h3, h4 {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-white { color: white !important; }
+.text-white-50 { color: rgba(255,255,255,0.7) !important; }
 .text-accent { color: var(--accent) !important; }
 
 /* ==========================================================================
@@ -103,11 +114,10 @@ h1, h2, h3, h4 {
     width: 100%;
     padding: 20px 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.0); /* Transparent au début */
+    background: rgba(255, 255, 255, 0.0);
     transition: all 0.4s ease;
 }
 
-/* Style quand on scrolle (ajouté par JS) */
 .navbar.scrolled {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -128,7 +138,7 @@ h1, h2, h3, h4 {
 .logo {
     font-family: var(--font-title);
     font-size: 1.6rem;
-    color: var(--primary); /* Par défaut foncé */
+    color: var(--primary);
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -155,25 +165,17 @@ h1, h2, h3, h4 {
     padding: 5px 0;
 }
 
-/* Animation soulignement */
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
+    bottom: 0; left: 0; width: 0%; height: 2px;
     background: var(--accent);
     transition: width 0.3s ease;
 }
-.nav-links a:hover::after {
-    width: 100%;
-}
+.nav-links a:hover::after { width: 100%; }
 
 /* Boutons Spéciaux Menu */
-.btn-nav-game {
-    color: var(--accent) !important;
-}
+.btn-nav-game { color: var(--accent) !important; }
 
 .btn-nav-contact {
     padding: 10px 25px !important;
@@ -182,7 +184,7 @@ h1, h2, h3, h4 {
     color: var(--primary) !important;
     transition: var(--transition-smooth);
 }
-.btn-nav-contact::after { display: none; } /* Pas de soulignement */
+.btn-nav-contact::after { display: none; }
 .btn-nav-contact:hover {
     background: var(--primary);
     color: white !important;
@@ -190,21 +192,15 @@ h1, h2, h3, h4 {
 }
 
 /* Menu Burger (Mobile) */
-.menu-toggle {
-    display: none;
-    cursor: pointer;
-}
+.menu-toggle { display: none; cursor: pointer; }
 .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
+    display: block; width: 25px; height: 3px; margin: 5px auto;
     background-color: var(--secondary);
     transition: all 0.3s ease;
 }
 
 /* ==========================================================================
-   4. HERO SECTION (VIDÉO & INTRO)
+   4. HERO SECTION
    ========================================================================== */
 header {
     height: 100vh;
@@ -215,27 +211,8 @@ header {
     text-align: center;
     color: white;
     overflow: hidden;
-}
-
-.video-wrapper {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -2;
-}
-
-.video-wrapper video {
-    width: 100%; height: 100%;
-    object-fit: cover; /* Remplit l'écran */
-}
-
-/* Filtre noir par-dessus la vidéo */
-.overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
-    z-index: -1;
+    /* L'image de fond est gérée dans le HTML pour ce projet, 
+       mais le CSS assure le centrage du contenu par-dessus */
 }
 
 .hero-content {
@@ -253,12 +230,13 @@ header {
     color: var(--accent);
     margin-bottom: 20px;
     font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-content h1 {
     font-size: 4.5rem;
     margin-bottom: 30px;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-shadow: 0 5px 15px rgba(0,0,0,0.6);
     line-height: 1.1;
 }
 
@@ -266,9 +244,10 @@ header {
     font-size: 1.4rem;
     font-family: var(--font-title);
     font-style: italic;
-    opacity: 0.9;
+    opacity: 0.95;
     margin-bottom: 50px;
     font-weight: 300;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Boutons Hero */
@@ -320,8 +299,7 @@ header {
 /* Flèche Scroll */
 .scroll-down {
     position: absolute;
-    bottom: 40px;
-    left: 50%;
+    bottom: 40px; left: 50%;
     transform: translateX(-50%);
     color: white;
     font-size: 2rem;
@@ -332,17 +310,12 @@ header {
 /* ==========================================================================
    5. SECTIONS GÉNÉRALES
    ========================================================================== */
-.section-padding {
-    padding: 100px 5%;
-}
+.section-padding { padding: 100px 0; } 
 
-.bg-alt {
-    background-color: var(--bg-alt); /* Fond beige clair */
-}
+.bg-alt { background-color: var(--bg-alt); }
+.bg-dark { background-color: var(--bg-dark); }
 
-.section-header {
-    margin-bottom: 60px;
-}
+.section-header { margin-bottom: 60px; }
 
 .section-tag {
     display: inline-block;
@@ -355,6 +328,7 @@ header {
     border-bottom: 1px solid var(--accent);
     padding-bottom: 5px;
 }
+.section-tag.dark-mode { border-bottom-color: rgba(255,255,255,0.2); }
 
 .section-title {
     font-size: 3rem;
@@ -383,7 +357,7 @@ header {
 
 .feature-item {
     text-align: center;
-    width: 250px;
+    width: 200px;
     padding: 20px;
 }
 
@@ -394,14 +368,12 @@ header {
     display: inline-block;
     transition: transform 0.3s ease;
 }
-
-.feature-item:hover i {
-    transform: scale(1.1) rotate(5deg);
-}
+.feature-item:hover i { transform: scale(1.1) rotate(5deg); }
 
 .feature-item h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
+    color: var(--secondary);
 }
 
 /* ==========================================================================
@@ -422,17 +394,13 @@ header {
     transition: var(--transition-smooth);
     border-bottom: 4px solid transparent;
 }
-
 .card:hover {
     transform: translateY(-15px);
     box-shadow: var(--shadow-lg);
     border-bottom-color: var(--accent);
 }
 
-.card-body {
-    padding: 40px 30px;
-    text-align: center;
-}
+.card-body { padding: 40px 30px; text-align: center; }
 
 .card-icon {
     font-size: 3.5rem;
@@ -440,16 +408,9 @@ header {
     color: var(--primary);
     transition: 0.3s;
 }
-.card:hover .card-icon {
-    color: var(--accent);
-    transform: scale(1.1);
-}
+.card:hover .card-icon { color: var(--accent); transform: scale(1.1); }
 
-.card h3 {
-    font-size: 1.8rem;
-    color: var(--secondary);
-    margin-bottom: 10px;
-}
+.card h3 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 10px; }
 
 .card-price {
     font-size: 2rem;
@@ -494,24 +455,17 @@ header {
     transition: var(--transition-smooth);
     position: relative;
     border-top: 4px solid var(--accent);
+    border-radius: var(--radius-md);
 }
-
 .detail-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-5px);
     border-top-width: 6px;
 }
 
-.detail-card .card-icon {
-    color: var(--accent);
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
+.detail-card .card-icon { color: var(--accent); font-size: 2.5rem; margin-bottom: 20px; }
 
-.list-check {
-    margin-top: 25px;
-}
-
+.list-check { margin-top: 25px; }
 .list-check li {
     display: flex;
     justify-content: space-between;
@@ -521,18 +475,9 @@ header {
     font-size: 0.95rem;
     color: #666;
 }
-
-.list-check li:last-child {
-    border-bottom: none;
-}
-
-.list-check li span {
-    color: var(--primary);
-    font-weight: 700;
-}
-.list-check li strong {
-    color: var(--secondary);
-}
+.list-check li:last-child { border-bottom: none; }
+.list-check li span { color: var(--primary); font-weight: 700; }
+.list-check li strong { color: var(--secondary); }
 
 /* ==========================================================================
    9. SECTION JEU CONCOURS (STYLE SOMBRE PREMIUM)
@@ -543,8 +488,6 @@ header {
     position: relative;
     overflow: hidden;
 }
-
-/* Particules d'or en arrière-plan */
 .game-section::before {
     content: '';
     position: absolute;
@@ -565,11 +508,7 @@ header {
 }
 
 /* --- PARTIE GAUCHE : INFO & FORM --- */
-.game-info {
-    flex: 1;
-    min-width: 320px;
-    max-width: 550px;
-}
+.game-info { flex: 1; min-width: 320px; max-width: 550px; }
 
 .game-tag {
     background: var(--accent);
@@ -586,17 +525,12 @@ header {
 .game-info h2 {
     font-size: 3rem;
     margin-bottom: 20px;
-    /* Effet texte dégradé or */
     background: linear-gradient(to right, #ffffff, #aaaaaa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.game-desc {
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-}
+.game-desc { color: rgba(255,255,255,0.8); margin-bottom: 30px; font-size: 1.1rem; }
 
 /* Wrapper Formulaire (Glassmorphism) */
 .form-wrapper {
@@ -630,17 +564,13 @@ header {
     font-size: 1rem;
     transition: 0.3s;
 }
-
 .input-group input:focus, .input-group select:focus {
     outline: none;
     border-color: var(--accent);
     background: rgba(255, 255, 255, 0.15);
 }
 
-.row-2 {
-    display: flex;
-    gap: 20px;
-}
+.row-2 { display: flex; gap: 20px; }
 .row-2 .input-group { flex: 1; }
 
 .btn-game-submit {
@@ -660,74 +590,67 @@ header {
     align-items: center;
     gap: 10px;
 }
-
-.btn-game-submit:hover {
-    background: white;
-    box-shadow: 0 0 20px var(--accent);
-}
+.btn-game-submit:hover { background: white; box-shadow: 0 0 20px var(--accent); }
 
 .privacy-note {
-    text-align: center;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 15px;
+    text-align: center; font-size: 0.8rem;
+    color: rgba(255,255,255,0.5); margin-top: 15px;
 }
 
-/* --- PARTIE DROITE : LA ROUE --- */
+/* --- PARTIE DROITE : LA ROUE (DESIGN LUXE & CORRIGÉ) --- */
 .game-wheel-area {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
 .wheel-container {
-    width: 400px;
-    height: 400px;
+    width: 380px; 
+    height: 380px;
     position: relative;
     border-radius: 50%;
-    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+    /* Double bordure : blanche fine + or large + ombre */
+    box-shadow: 
+        0 0 0 5px rgba(255,255,255,0.2),
+        0 0 0 12px var(--accent),
+        0 0 30px rgba(0,0,0,0.8);
     transition: filter 0.5s ease, opacity 0.5s ease;
+    background: #000;
 }
 
-/* État verrouillé */
 .blur-locked {
-    filter: grayscale(100%) blur(6px);
-    opacity: 0.4;
+    filter: grayscale(100%) blur(5px);
+    opacity: 0.6;
     pointer-events: none;
 }
 
-/* Flèche du haut */
 .wheel-pointer {
     position: absolute;
-    top: -25px;
+    top: -35px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
+    width: 40px; height: 50px;
     background: white;
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    clip-path: polygon(50% 100%, 0 10%, 100% 10%);
     z-index: 20;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5));
 }
 
-/* Le cercle qui tourne */
 .wheel {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50%;
-    border: 10px solid white;
     position: relative;
     overflow: hidden;
-    /* Transition de rotation très longue pour le réalisme */
     transition: transform 5s cubic-bezier(0.15, 0.85, 0.15, 1); 
+    border: 4px solid white;
 }
 
-/* Segments de la roue */
+/* Segments */
 .segment {
     position: absolute;
-    width: 50%;
-    height: 50%;
+    width: 50%; height: 50%;
     transform-origin: bottom right;
     top: 0; left: 0;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
@@ -736,86 +659,93 @@ header {
     align-items: center;
 }
 
-/* Couleurs alternées */
-.s1 { background: var(--accent); transform: rotate(60deg); }
-.s2 { background: #333; transform: rotate(120deg); }
-.s3 { background: var(--accent); transform: rotate(180deg); }
-.s4 { background: #333; transform: rotate(240deg); }
-.s5 { background: var(--accent); transform: rotate(300deg); }
-.s6 { background: #333; transform: rotate(360deg); }
-
-.segment span {
-    position: absolute;
-    top: 70px; left: 50px;
-    transform: rotate(-45deg);
-    color: white;
-    font-weight: 800;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 2px black;
+/* Couleurs alternées et Dégradés */
+.s1, .s3, .s5 { 
+    background: radial-gradient(circle at center, #f3d87e 0%, #d4af37 100%); 
+}
+.s2, .s4, .s6 { 
+    background: radial-gradient(circle at center, #444 0%, #1a1a1a 100%); 
 }
 
-/* Bouton Central (GO) */
+/* Rotation des segments */
+.s1 { transform: rotate(30deg); }
+.s2 { transform: rotate(90deg); }
+.s3 { transform: rotate(150deg); }
+.s4 { transform: rotate(210deg); }
+.s5 { transform: rotate(270deg); }
+.s6 { transform: rotate(330deg); }
+
+/* Texte dans la roue */
+.segment span {
+    position: absolute;
+    bottom: 30px; right: 30px;
+    transform: rotate(-45deg); /* Texte droit */
+    
+    color: white;
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1rem; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    
+    white-space: nowrap; 
+    text-align: center;
+    width: 100px;
+}
+
+/* Texte foncé sur fond or */
+.s1 span, .s3 span, .s5 span {
+    color: #2c2c2c;
+    text-shadow: none;
+}
+
+/* Bouton Central */
 .wheel-center {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 90px; height: 90px;
-    background: white;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, #ffffff 40%, #e0e0e0 100%);
     border-radius: 50%;
-    border: 6px solid var(--accent);
+    border: 4px solid var(--accent);
+    box-shadow: 0 0 0 4px white, 0 5px 15px rgba(0,0,0,0.3);
     display: flex; justify-content: center; align-items: center;
     z-index: 10;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
 }
 
 .wheel-center button {
-    background: none;
-    border: none;
+    background: none; border: none;
     font-family: var(--font-title);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--secondary);
-    cursor: pointer;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--secondary); cursor: pointer;
+    text-transform: uppercase; letter-spacing: 1px;
+    transition: 0.3s;
 }
-.wheel-center button:disabled { color: #ccc; cursor: default; }
+.wheel-center button:hover { color: var(--accent); transform: scale(1.1); }
+.wheel-center button:disabled { color: #ccc; cursor: not-allowed; transform: scale(1); }
 
-/* Message Résultat */
+/* Résultat */
 .result-box {
-    margin-top: 30px;
-    background: white;
+    margin-top: 40px;
+    background: rgba(255,255,255,0.95);
     color: var(--secondary);
     padding: 20px 30px;
     border-radius: var(--radius-md);
     text-align: center;
-    font-weight: bold;
-    display: none; /* Caché par défaut */
-    animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--accent);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-@keyframes popUp {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    display: none;
+    animation: popUp 0.5s ease;
+    max-width: 350px;
 }
 
 /* ==========================================================================
    10. SECTION CONTACT & FOOTER
    ========================================================================== */
-.bg-dark {
-    background-color: var(--bg-dark);
-}
+.contact-form-main { max-width: 700px; margin: 50px auto 0; }
 
-.contact-form-main {
-    max-width: 700px;
-    margin: 50px auto 0;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-}
+.form-row { display: flex; gap: 20px; margin-bottom: 20px; }
 
 .contact-form-main input, .contact-form-main textarea {
     width: 100%;
@@ -827,16 +757,13 @@ header {
     font-family: var(--font-text);
     font-size: 1rem;
 }
-
 .contact-form-main input:focus, .contact-form-main textarea:focus {
     outline: none;
     border-color: var(--primary);
     background: rgba(255,255,255,0.1);
 }
 
-.full-width {
-    width: 100%;
-}
+.full-width { width: 100%; }
 
 footer {
     background: #000;
@@ -846,74 +773,19 @@ footer {
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #222;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 40px; border-bottom: 1px solid #222;
     margin-bottom: 30px;
 }
-
-.footer-logo h3 {
-    color: white;
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-}
-
+.footer-logo h3 { color: white; font-size: 1.5rem; margin-bottom: 5px; }
 .footer-links a {
-    color: #888;
-    margin-left: 25px;
-    font-size: 0.9rem;
-    transition: 0.3s;
+    color: #888; margin-left: 25px; font-size: 0.9rem; transition: 0.3s;
 }
-
-.footer-links a:hover {
-    color: var(--accent);
-}
+.footer-links a:hover { color: var(--accent); }
 
 /* ==========================================================================
-   11. ESPACE CLIENT & MODALS (LE CŒUR DU SYSTÈME)
+   11. MODALS & DASHBOARD (ESPACE CLIENT)
    ========================================================================== */
-
-/* Modal (Overlay) */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(5px);
-    z-index: 2000;
-    display: flex; align-items: center; justify-content: center;
-}
-
-/* Modal Content */
-.close-modal {
-    transition: 0.3s;
-}
-.close-modal:hover { color: var(--error); transform: rotate(90deg); }
-
-/* Dashboard Client Styles */
-#clientDashboard .card {
-    border: 1px solid #eee;
-    box-shadow: var(--shadow-sm);
-    background: white;
-    height: 100%; /* Égaliser les hauteurs */
-}
-
-/* Barre de progression Dashboard */
-.progress-bar-container {
-    background: #eee;
-    height: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-.progress-bar-fill {
-    background: var(--accent);
-    height: 100%;
-    width: 0%; /* Animé par JS */
-    transition: width 1s ease-in-out;
-}
-
-/* Liste des documents */
 .doc-link {
     display: flex;
     align-items: center;
@@ -923,6 +795,8 @@ footer {
     margin-bottom: 10px;
     border-radius: 4px;
     transition: 0.3s;
+    cursor: pointer;
+    color: #555;
 }
 .doc-link:hover {
     background: var(--bg-alt);
@@ -930,12 +804,28 @@ footer {
     color: var(--primary);
 }
 
+.progress-bar-container {
+    background: #eee;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.progress-bar-fill {
+    transition: width 1s ease-in-out;
+}
+
 /* ==========================================================================
-   12. ANIMATIONS & CLÉS
+   12. ANIMATIONS
    ========================================================================== */
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes bounce {
@@ -944,7 +834,6 @@ footer {
     60% {transform: translateX(-50%) translateY(-5px);}
 }
 
-/* Classes pour le JS (Intersection Observer) */
 .fade-in, .fade-in-up, .fade-in-left, .fade-in-right {
     opacity: 0;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -953,16 +842,11 @@ footer {
 .fade-in-left { transform: translateX(-50px); }
 .fade-in-right { transform: translateX(50px); }
 
-.visible {
-    opacity: 1;
-    transform: translate(0, 0);
-}
+.visible { opacity: 1; transform: translate(0, 0); }
 
 /* ==========================================================================
-   13. RESPONSIVE DESIGN (MOBILE & TABLETTE)
+   13. RESPONSIVE DESIGN
    ========================================================================== */
-
-/* Tablette (Max 968px) */
 @media (max-width: 968px) {
     .hero-content h1 { font-size: 3.5rem; }
     .features-grid { gap: 30px; }
@@ -971,14 +855,13 @@ footer {
     .game-wheel-area { order: 2; margin-top: 40px; }
 }
 
-/* Mobile (Max 768px) */
 @media (max-width: 768px) {
     .navbar { padding: 10px 0; background: rgba(255,255,255,0.95); }
     
-    /* Menu Mobile */
-    .menu-toggle { display: block; }
+    .menu-toggle { display: block; z-index: 1001; }
+    
     .nav-links {
-        display: none; /* Le JS doit gérer l'affichage */
+        display: none;
         position: absolute;
         top: 60px; left: 0; width: 100%;
         background: white;
@@ -992,12 +875,13 @@ footer {
     .hero-content p { font-size: 1.1rem; }
     .hero-buttons { flex-direction: column; }
     
-    .section-padding { padding: 60px 5%; }
+    .section-padding { padding: 60px 0; }
     
     .row-2, .form-row { flex-direction: column; }
     
     .footer-content { flex-direction: column; gap: 30px; text-align: center; }
     .footer-links a { margin: 0 10px; }
     
+    /* La roue s'adapte sur mobile */
     .wheel-container { width: 300px; height: 300px; }
 }
